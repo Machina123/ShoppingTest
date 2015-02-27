@@ -32,5 +32,8 @@
     <string name="title_activity_find_product_by_code">FindProducyByCodeActivity</string>
     <string name="title_activity_find_producy_by_code">FindProducyByCodeActivity</string>
 
-    <string name="title_scan_results">Wyniki skanowania</string>
+    <string name="title_scan_results">Wyniki wyszukiwania</string>
+    <string name="title_activity_get_products_by_name">GetProductsByName</string>
+    <string name="button_search">Szukaj</string>
+    <string name="text_hint_enter_phrase">Szukana fraza...</string>
 </resources>

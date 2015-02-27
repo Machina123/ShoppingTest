@@ -46,6 +46,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pcinnovations.shoppingtest.AddProduct" />
         </activity>
+        <activity
+            android:name=".GetProductsByName"
+            android:label="@string/title_activity_get_products_by_name"
+            android:parentActivityName=".AddProduct" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pcinnovations.shoppingtest.AddProduct" />
+        </activity>
     </application>
 
 </manifest>

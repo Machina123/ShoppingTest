@@ -22,6 +22,7 @@ import org.w3c.dom.Text;
 public class AddProduct extends ActionBarActivity implements OnClickListener {
 
     private Button btnInitiateScan;
+    private Button btnFindByName;
     private TextView lastScanned;
     private TextView barcodeApp;
     public String lastCode;
@@ -32,6 +33,7 @@ public class AddProduct extends ActionBarActivity implements OnClickListener {
         setContentView(R.layout.activity_add_product);
         getSupportActionBar().setTitle(R.string.menu_add_product);
         btnInitiateScan = (Button) findViewById(R.id.btnAddProdScanCode);
+        btnFindByName = (Button)findViewById(R.id.btnAddProdEnterName);
         lastScanned = (TextView) findViewById(R.id.textLastScanned);
         barcodeApp = (TextView) findViewById(R.id.txtBarcodeApp);
         if(savedInstanceState != null) {
@@ -40,6 +42,7 @@ public class AddProduct extends ActionBarActivity implements OnClickListener {
         if(lastCode != null) lastScanned.setText(getString(R.string.label_last_product) + " " + lastCode);
         btnInitiateScan.setOnClickListener(this);
         barcodeApp.setOnClickListener(this);
+        btnFindByName.setOnClickListener(this);
     }
 
     @Override
@@ -74,6 +77,9 @@ public class AddProduct extends ActionBarActivity implements OnClickListener {
                             .show();
                 }
                 break;
+            case R.id.btnAddProdEnterName:
+                Intent newWindow = new Intent(AddProduct.this, GetProductsByName.class);
+                startActivity(newWindow);
         }
 
     }
