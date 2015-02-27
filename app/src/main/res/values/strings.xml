@@ -18,6 +18,7 @@
     <string name="title_activity_my_lists">MyLists</string>
 
     <string name="action_download_lists">Pobierz</string>
+    <string name="action_add_list">Nowa lista</string>
     <string name="title_activity_add_product">AddProduct</string>
 
     <string name="action_addprod_scan_code">Zeskanuj kod kreskowy</string>
@@ -36,4 +37,9 @@
     <string name="title_activity_get_products_by_name">GetProductsByName</string>
     <string name="button_search">Szukaj</string>
     <string name="text_hint_enter_phrase">Szukana fraza...</string>
+    <string name="label_new_list_name">Podaj nazwę listy:</string>
+    <string name="hint_new_list">Nowa lista</string>
+
+    <string name="action_rename_list">Zmień nazwę</string>
+    <string name="action_delete_list">Usuń listę</string>
 </resources>

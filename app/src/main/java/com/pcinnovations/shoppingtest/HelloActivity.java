@@ -26,16 +26,14 @@ public class HelloActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hello);
         getSupportActionBar().setTitle(getString(R.string.project_name));
-        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        getSupportActionBar().setLogo(R.mipmap.ic_new);
+        getSupportActionBar().setIcon(R.mipmap.ic_new);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         btnMyLists = (Button)findViewById(R.id.buttonMyLists);
         btnAddProduct = (Button) findViewById(R.id.buttonAddProduct);
         btnListProducts = (Button) findViewById(R.id.buttonListProducts);
         btnUserMgmt = (Button) findViewById(R.id.buttonUserMgmt);
-        btnSettings = (Button) findViewById(R.id.buttonSettings);
-        btnExitApp = (Button) findViewById(R.id.buttonExitApp);
 
         addButtonListeners();
     }
@@ -69,19 +67,6 @@ public class HelloActivity extends ActionBarActivity {
             }
         });
 
-        btnSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSettingsClick();
-            }
-        });
-
-        btnExitApp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onExitClick();
-            }
-        });
     }
 
     @Override
@@ -97,10 +82,10 @@ public class HelloActivity extends ActionBarActivity {
 
         switch(id) {
             case R.id.action_settings:
-
+                onSettingsClick();
                 return true;
             case R.id.action_exitApp:
-                finish();
+                onExitClick();
                 return true;
         }
         return super.onOptionsItemSelected(item);

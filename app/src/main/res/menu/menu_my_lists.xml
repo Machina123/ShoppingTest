@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.pcinnovations.shoppingtest.MyLists">
+
+    <item android:id="@+id/action_new" android:title="@string/action_add_list"
+        android:orderInCategory="101" app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_add" />
+
     <item android:id="@+id/action_download" android:title="@string/action_download_lists"
-        android:orderInCategory="100" app:showAsAction="always" />
+        android:orderInCategory="100" app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_download"/>
 </menu>

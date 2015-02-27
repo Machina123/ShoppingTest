@@ -23,7 +23,7 @@ public class AddProduct extends ActionBarActivity implements OnClickListener {
 
     private Button btnInitiateScan;
     private Button btnFindByName;
-    private TextView lastScanned;
+    //private TextView lastScanned;
     private TextView barcodeApp;
     public String lastCode;
 
@@ -34,12 +34,12 @@ public class AddProduct extends ActionBarActivity implements OnClickListener {
         getSupportActionBar().setTitle(R.string.menu_add_product);
         btnInitiateScan = (Button) findViewById(R.id.btnAddProdScanCode);
         btnFindByName = (Button)findViewById(R.id.btnAddProdEnterName);
-        lastScanned = (TextView) findViewById(R.id.textLastScanned);
+        //lastScanned = (TextView) findViewById(R.id.textLastScanned);
         barcodeApp = (TextView) findViewById(R.id.txtBarcodeApp);
         if(savedInstanceState != null) {
             lastCode = savedInstanceState.getString("LAST_CODE");
         }
-        if(lastCode != null) lastScanned.setText(getString(R.string.label_last_product) + " " + lastCode);
+        // if(lastCode != null) lastScanned.setText(getString(R.string.label_last_product) + " " + lastCode);
         btnInitiateScan.setOnClickListener(this);
         barcodeApp.setOnClickListener(this);
         btnFindByName.setOnClickListener(this);
@@ -73,7 +73,7 @@ public class AddProduct extends ActionBarActivity implements OnClickListener {
                     alertDialog.setTitle(R.string.dialog_title_error)
                             .setMessage(R.string.dialog_market_not_found)
                             .setPositiveButton(R.string.dialog_ack, null)
-                            .setIcon(android.R.drawable.stat_notify_error)
+                            .setIcon(R.drawable.ic_error_notif)
                             .show();
                 }
                 break;
@@ -90,7 +90,7 @@ public class AddProduct extends ActionBarActivity implements OnClickListener {
             String scannedCode = scanResult.getContents();
             // Toast.makeText(AddProduct.this, "ZNALEZIONO KOD: " + scannedCode, Toast.LENGTH_LONG).show();
             lastCode = scannedCode;
-            lastScanned.setText(getString(R.string.label_last_product) + " " + scannedCode);
+            //lastScanned.setText(getString(R.string.label_last_product) + " " + scannedCode);
             Intent scanResultActivity = new Intent(AddProduct.this, FindProductByCodeActivity.class)
                     .putExtra("SCANNED_CODE", scannedCode);
             startActivity(scanResultActivity);

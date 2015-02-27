@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/action_rename_list"
+        android:id="@+id/action_renameList"
+        android:icon="@android:drawable/ic_menu_edit" />
+    <item android:title="@string/action_delete_list"
+        android:id="@+id/action_deleteList"
+        android:icon="@android:drawable/ic_menu_delete" />
+</menu>
