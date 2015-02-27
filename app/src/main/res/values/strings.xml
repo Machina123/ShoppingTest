@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">ShoppingTest</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_my_lists">Moje listy zakupów</string>
+    <string name="menu_add_product">Dodaj produkt</string>
+    <string name="menu_list_products">Zapisane produkty</string>
+    <string name="menu_user_mgmt">Panel użytkownika</string>
+    <string name="menu_settings">Ustawienia</string>
+    <string name="menu_exit">Wyjście</string>
+    <string name="general_copy"><![CDATA[©2015 P&C Innovations]]></string>
+
+    <string name="project_name">Shopping Companion</string>
+
+    <string name="action_press_back">Naciśnij przycisk WSTECZ ponownie, aby wyjść</string>
+    <string name="title_activity_my_lists">MyLists</string>
+
+    <string name="action_download_lists">Pobierz</string>
+    <string name="title_activity_add_product">AddProduct</string>
+
+    <string name="action_addprod_scan_code">Zeskanuj kod kreskowy</string>
+    <string name="action_addprod_search_name">Wpisz nazwę produktu</string>
+    <string name="label_last_product">Ostatnio skanowany:</string>
+    <string name="text_barcode_app_required">Aplikacja wymaga zainstalowania czytnika kodów Google ZXing. Kliknij tutaj, aby pobrać</string>
+
+    <string name="dialog_market_not_found">Nie znaleziono Sklepu Play!</string>
+    <string name="dialog_ack">OK</string>
+    <string name="dialog_title_error">Błąd</string>
+
+    <string name="title_activity_find_product_by_code">FindProducyByCodeActivity</string>
+    <string name="title_activity_find_producy_by_code">FindProducyByCodeActivity</string>
+
+    <string name="title_scan_results">Wyniki skanowania</string>
+</resources>

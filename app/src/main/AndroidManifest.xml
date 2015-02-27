@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pcinnovations.shoppingtest" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".HelloActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MyLists"
+            android:label="@string/title_activity_my_lists"
+            android:parentActivityName=".HelloActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pcinnovations.shoppingtest.HelloActivity" />
+        </activity>
+        <activity
+            android:name=".AddProduct"
+            android:label="@string/title_activity_add_product"
+            android:parentActivityName=".HelloActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pcinnovations.shoppingtest.HelloActivity" />
+        </activity>
+        <activity
+            android:name=".FindProducyByCodeActivity"
+            android:label="@string/title_activity_find_producy_by_code" >
+        </activity>
+        <activity
+            android:name=".FindProductByCodeActivity"
+            android:label="@string/title_activity_find_product_by_code"
+            android:parentActivityName=".AddProduct" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pcinnovations.shoppingtest.AddProduct" />
+        </activity>
+    </application>
+
+</manifest>
