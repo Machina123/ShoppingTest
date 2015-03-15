@@ -34,7 +34,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pcinnovations.shoppingtest.HelloActivity" />
         </activity>
-
         <activity
             android:name=".FindProductByCodeActivity"
             android:label="@string/title_activity_find_product_by_code"
@@ -50,6 +49,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pcinnovations.shoppingtest.AddProduct" />
+        </activity>
+        <activity
+            android:name=".SavedProducts"
+            android:label="@string/title_activity_saved_products"
+            android:parentActivityName=".HelloActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pcinnovations.shoppingtest.HelloActivity" />
         </activity>
     </application>
 

@@ -42,4 +42,5 @@
 
     <string name="action_rename_list">Zmień nazwę</string>
     <string name="action_delete_list">Usuń listę</string>
+    <string name="title_activity_saved_products">SavedProducts</string>
 </resources>

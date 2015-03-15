@@ -1,10 +1,12 @@
 package com.pcinnovations.shoppingtest;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
@@ -25,9 +27,20 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 
@@ -37,6 +50,10 @@ public class MyLists extends ActionBarActivity {
     private String getListsUri = "http://93.180.174.49:50080/companion/GetLists.php?user=1";
     private String renameListsUri = "http://93.180.174.49:50080/companion/RenameList.php?list=";
     private String deleteListUri = "http://93.180.174.49:50080/companion/DeleteList.php?list=";
+
+    private static final String FILE_NAME = "lists.json";
+
+    private String jsonString = "";
 
     private ActionMode mActionMode;
     public String editingId;
@@ -69,6 +86,7 @@ public class MyLists extends ActionBarActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putStringArrayList("LISTS", downloadedLists);
+        outState.putStringArrayList("LISTS_IDS", downloadedListsIds);
     }
 
     @Override
@@ -183,6 +201,7 @@ public class MyLists extends ActionBarActivity {
                         downloadedLists.clear();
                         downloadedListsIds.clear();
                         Log.i("JSONArray", lists.toString());
+                        jsonString = lists.toString();
                         for (int i = 0; i < lists.length(); i++) {
                             downloadedLists.add(lists.getJSONArray(i).getString(1));
                             downloadedListsIds.add(lists.getJSONArray(i).getString(0));
@@ -300,5 +319,63 @@ public class MyLists extends ActionBarActivity {
                 return true;
             }
         });
+    }
+
+    public JSONArray getSavedLists() {
+        try {
+            File dataLocation = Environment.getDataDirectory();
+            File savedFile = new File(dataLocation, FILE_NAME);
+            BufferedReader reader = new BufferedReader(new FileReader(savedFile));
+            String savedJsonString = "";
+            String line;
+            while( (line = reader.readLine()) != null) {
+                savedJsonString += line;
+            }
+            reader.close();
+            return new JSONArray(savedJsonString);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void saveLists() {
+        try {
+            File dataLocation = Environment.getDataDirectory();
+            File savedFile = new File(dataLocation, FILE_NAME);
+            FileWriter writer = new FileWriter(savedFile, false);
+            writer.write(jsonString);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getListsFromJson(JSONArray jsonObject) {
+        if(jsonObject.length() < 1) {
+            downloadedLists.clear();
+            downloadedLists.add("Brak list do wyświetlenia");
+            downloadedListsIds.clear();
+            downloadedListsIds.add("0");
+        } else {
+            downloadedLists.clear();
+            downloadedListsIds.clear();
+            for(int i = 0; i < jsonObject.length(); i++) {
+                try {
+                    downloadedLists.add(jsonObject.getJSONArray(i).getString(1));
+                    downloadedListsIds.add(jsonObject.getJSONArray(i).getString(0));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        refreshLists();
     }
 }
