@@ -17,8 +17,6 @@ public class HelloActivity extends ActionBarActivity {
     public Button btnAddProduct;
     public Button btnListProducts;
     public Button btnUserMgmt;
-    public Button btnSettings;
-    public Button btnExitApp;
 
 
     @Override

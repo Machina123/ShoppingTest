@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
@@ -29,6 +30,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -55,6 +57,8 @@ public class MyLists extends ActionBarActivity {
 
     private String jsonString = "";
 
+    private JSONArray jsonArray;
+
     private ActionMode mActionMode;
     public String editingId;
 
@@ -78,6 +82,10 @@ public class MyLists extends ActionBarActivity {
             downloadedListsIds.clear();
             downloadedListsIds = savedInstanceState.getStringArrayList("LISTS_IDS");
         }
+
+        jsonArray = getSavedLists();
+
+        getListsFromJson(getSavedLists());
         refreshLists();
 
     }
@@ -87,6 +95,13 @@ public class MyLists extends ActionBarActivity {
         super.onSaveInstanceState(outState);
         outState.putStringArrayList("LISTS", downloadedLists);
         outState.putStringArrayList("LISTS_IDS", downloadedListsIds);
+        saveLists();
+    }
+
+    @Override
+    protected void onDestroy() {
+        saveLists();
+        super.onDestroy();
     }
 
     @Override
@@ -191,6 +206,7 @@ public class MyLists extends ActionBarActivity {
                 if(requestType == "GETLISTS") {
                     NotificationHandler handler = new NotificationHandler();
                     JSONArray lists = new JSONArray(result);
+                    jsonArray = lists;
                     if(lists.length() < 1) {
                         downloadedLists.clear();
                         downloadedListsIds.clear();
@@ -207,6 +223,7 @@ public class MyLists extends ActionBarActivity {
                             downloadedListsIds.add(lists.getJSONArray(i).getString(0));
                         }
                     }
+                    saveLists();
                     refreshLists();
                 } else if(requestType == "NEWLIST") {
                     Toast.makeText(MyLists.this, "Lista została utworzona!", Toast.LENGTH_SHORT).show();
@@ -323,34 +340,42 @@ public class MyLists extends ActionBarActivity {
 
     public JSONArray getSavedLists() {
         try {
-            File dataLocation = Environment.getDataDirectory();
+            File dataLocation = getApplicationContext().getCacheDir();
             File savedFile = new File(dataLocation, FILE_NAME);
+            if(!savedFile.exists()) return new JSONArray();
+            if(savedFile.length() < 1) return new JSONArray();
             BufferedReader reader = new BufferedReader(new FileReader(savedFile));
             String savedJsonString = "";
-            String line;
+            String line = "";
             while( (line = reader.readLine()) != null) {
                 savedJsonString += line;
+                Log.i("GetSavedLists", line);
             }
             reader.close();
+            Log.i("GetSavedJsonString", savedJsonString);
             return new JSONArray(savedJsonString);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            return null;
+            return new JSONArray();
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return new JSONArray();
         } catch (JSONException e) {
             e.printStackTrace();
-            return null;
+            return new JSONArray();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return new JSONArray();
         }
     }
 
     public void saveLists() {
         try {
-            File dataLocation = Environment.getDataDirectory();
+            File dataLocation = getApplicationContext().getCacheDir();
             File savedFile = new File(dataLocation, FILE_NAME);
+            if(!savedFile.exists()) savedFile.createNewFile();
             FileWriter writer = new FileWriter(savedFile, false);
-            writer.write(jsonString);
+            writer.write(jsonArray.toString());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -358,7 +383,8 @@ public class MyLists extends ActionBarActivity {
     }
 
     public void getListsFromJson(JSONArray jsonObject) {
-        if(jsonObject.length() < 1) {
+        Log.d("GetListsFromJson", jsonObject.toString());
+        if(jsonObject.length() < 1 || jsonObject == null) {
             downloadedLists.clear();
             downloadedLists.add("Brak list do wyświetlenia");
             downloadedListsIds.clear();
