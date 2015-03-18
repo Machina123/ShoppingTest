@@ -26,10 +26,15 @@ public class FindProductByCodeActivity extends ActionBarActivity {
     public String scannedCode;
     public Bundle extras;
     public TextView resultView;
+    private int requestCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle extras = getIntent().getExtras();
+        requestCode = extras.getInt("request", 0);
+
         setContentView(R.layout.activity_find_product_by_code);
 
         getSupportActionBar().setTitle(R.string.title_scan_results);
@@ -91,6 +96,9 @@ public class FindProductByCodeActivity extends ActionBarActivity {
         protected void onPostExecute(String result) {
             try {
                 dialog.dismiss();
+                if(requestCode == 1) {
+
+                }
                 resultView.setText("Znaleziono produkt: " + result);
             } catch (Exception e) {
                 e.printStackTrace();

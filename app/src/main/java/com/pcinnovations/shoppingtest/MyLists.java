@@ -1,8 +1,10 @@
 package com.pcinnovations.shoppingtest;
 
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -213,7 +215,8 @@ public class MyLists extends ActionBarActivity {
                         downloadedLists.add("Brak list do wyświetlenia");
                         downloadedListsIds.add("0");
                     } else {
-                        handler.sendNotification(getCurrentFocus(), MyLists.this, "Nowe listy!", "Pobrano nowe listy", android.R.drawable.ic_menu_add);
+                        PendingIntent pendingIntent = PendingIntent.getActivity(MyLists.this, 0, new Intent(MyLists.this, MyLists.class), PendingIntent.FLAG_ONE_SHOT);
+                        handler.sendNotification(getCurrentFocus(), MyLists.this, "Nowe listy!", "Pobrano nowe listy", android.R.drawable.ic_menu_add, pendingIntent);
                         downloadedLists.clear();
                         downloadedListsIds.clear();
                         Log.i("JSONArray", lists.toString());
@@ -222,6 +225,7 @@ public class MyLists extends ActionBarActivity {
                             downloadedLists.add(lists.getJSONArray(i).getString(1));
                             downloadedListsIds.add(lists.getJSONArray(i).getString(0));
                         }
+                        saveLists();
                     }
                     saveLists();
                     refreshLists();
@@ -325,7 +329,12 @@ public class MyLists extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedList = downloadedListsIds.get(position);
-                Toast.makeText(MyLists.this, selectedList, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MyLists.this, selectedList, Toast.LENGTH_SHORT).show();
+                Intent startIntent = new Intent(MyLists.this, AddItemToList.class);
+                getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).edit().putString("sc_listId", selectedList).putString("sc_listName",downloadedLists.get(position)).commit();
+                startIntent.putExtra("listId", selectedList);
+                startIntent.putExtra("listName", downloadedLists.get(position));
+                startActivity(startIntent);
             }
         });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

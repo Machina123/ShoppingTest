@@ -20,8 +20,8 @@ public class NotificationHandler {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-        builder.setSmallIcon(android.R.drawable.ic_menu_save)
-                .setLargeIcon(BitmapFactory.decodeResource(view.getResources(), R.mipmap.ic_launcher))
+        builder.setSmallIcon(android.R.drawable.ic_menu_sort_by_size)
+                .setLargeIcon(BitmapFactory.decodeResource(view.getResources(), R.mipmap.ic_new))
                 .setAutoCancel(true)
                 .setContentTitle(title)
                 .setTicker(title)
@@ -37,8 +37,8 @@ public class NotificationHandler {
     public void sendNotification(View view, Context context, CharSequence title, CharSequence message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-        builder.setSmallIcon(android.R.drawable.ic_menu_save)
-                .setLargeIcon(BitmapFactory.decodeResource(view.getResources(), R.mipmap.ic_launcher))
+        builder.setSmallIcon(android.R.drawable.ic_menu_sort_by_size)
+                .setLargeIcon(BitmapFactory.decodeResource(view.getResources(), R.mipmap.ic_new))
                 .setAutoCancel(true)
                 .setContentTitle(title)
                 .setTicker(title)
@@ -53,12 +53,27 @@ public class NotificationHandler {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
         builder.setSmallIcon(smallIconID)
-                .setLargeIcon(BitmapFactory.decodeResource(view.getResources(), R.mipmap.ic_launcher))
+                .setLargeIcon(BitmapFactory.decodeResource(view.getResources(), R.mipmap.ic_new))
                 .setAutoCancel(true)
                 .setTicker(title)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setDefaults(Notification.DEFAULT_ALL);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1,builder.build());
+    }
+
+    public void sendNotification(View view, Context context, CharSequence title, CharSequence message, int smallIconID, PendingIntent pendingIntent) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+
+        builder.setSmallIcon(smallIconID)
+                .setLargeIcon(BitmapFactory.decodeResource(view.getResources(), R.mipmap.ic_new))
+                .setAutoCancel(true)
+                .setTicker(title)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setContentIntent(pendingIntent);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1,builder.build());
     }

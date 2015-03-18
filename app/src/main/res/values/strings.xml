@@ -43,4 +43,17 @@
     <string name="action_rename_list">Zmień nazwę</string>
     <string name="action_delete_list">Usuń listę</string>
     <string name="title_activity_saved_products">SavedProducts</string>
+    <string name="title_activity_add_item_to_list">Dodaj wpis do listy</string>
+    <string name="button_get_product_from_saved">Ostatnio wybierane</string>
+    <string name="button_get_product_from_db">Z bazy danych</string>
+    <string name="label_set_amount">Podaj ilość</string>
+    <string name="title_">MainActivity</string>
+    <string name="title_activity_product_finder">Wyszukiwanie produktu</string>
+    <string name="label_bad_values">Proszę czekać, trwa wyszukiwanie produktu...</string>
+    <string name="title_activity_splash_screen">Shopping Companion</string>
+    <string name="label_hello">Shopping Companion</string>
+    <string name="desc_logo">Logo</string>
+    <string name="label_app_loading">Trwa ładowanie aplikacji</string>
+    <string name="shared_prefs_key">com.pcinnovations.shoppingtest.SharedPrefs</string>
+    <string name="label_add_product_dialog">Dodaj produkt</string>
 </resources>

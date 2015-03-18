@@ -1,6 +1,8 @@
 package com.pcinnovations.shoppingtest;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -33,6 +35,7 @@ import java.util.ArrayList;
 
 public class GetProductsByName extends ActionBarActivity {
 
+    public int requestCode;
     private String queryName;
     private static JSONArray products;
     private ListView listProds;
@@ -43,7 +46,12 @@ public class GetProductsByName extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_get_products_by_name);
+
+        int extra = getIntent().getIntExtra("requestCode", 0);
+        Log.d("GetProductsByName.Xtras", String.valueOf(extra));
+        requestCode = extra;
 
         getSupportActionBar().setTitle(R.string.title_scan_results);
 
@@ -136,14 +144,20 @@ public class GetProductsByName extends ActionBarActivity {
         final ArrayList<Product> productsArray = getProductsFromJsonArray(products);
         final ProductListAdapter adapter = new ProductListAdapter(GetProductsByName.this, R.layout.product_item, productsArray );
 
-
-
         listProds.setAdapter(adapter);
         listProds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Product selected = productsArray.get(position);
                 Toast.makeText(GetProductsByName.this, selected.getName(), Toast.LENGTH_SHORT).show();
+                Log.d("SC_RequestCode", String.valueOf(requestCode));
+                if(requestCode != 0) {
+                    Intent intent = new Intent(GetProductsByName.this, AddItemToList.class);
+                    getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).edit().putString("sc_returnedEan", selected.getEan()).putString("sc_returnedName", selected.getName()).commit();
+                    startActivity(intent);
+                    finish();
+                }
+                else Toast.makeText(GetProductsByName.this, selected.getName(), Toast.LENGTH_SHORT).show();
             }
         });
     }
