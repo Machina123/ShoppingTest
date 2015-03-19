@@ -16,9 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -126,16 +123,17 @@ public class AddItemToList extends ActionBarActivity {
         @Override
         protected void onPostExecute(String result) {
             try {
-                if(result.equals("BANANA")) {
+                if(result.equals("BANANA"))
                     Toast.makeText(AddItemToList.this, "Dodano produkt do listy!", Toast.LENGTH_SHORT).show();
-                    AddItemToList.this.finish();
-                } else
+                else
                     Toast.makeText(AddItemToList.this, "Nie udało się dodać produktu do listy", Toast.LENGTH_SHORT).show();
+
+                getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).edit().clear().putString("sc_listId", listId).putString("sc_listName", listName).commit();
+                AddItemToList.this.finish();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            AddItemToList.this.finish();
         }
     }
 
@@ -162,6 +160,5 @@ public class AddItemToList extends ActionBarActivity {
                     }
                 })
                 .show();
-        getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).edit().clear().commit();
     }
 }

@@ -12,13 +12,13 @@
         <activity
             android:name=".HelloActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".MyLists"
             android:label="@string/title_activity_my_lists"
             android:parentActivityName=".HelloActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pcinnovations.shoppingtest.HelloActivity" />
@@ -36,7 +36,7 @@
             android:name=".FindProductByCodeActivity"
             android:label="@string/title_activity_find_product_by_code"
             android:parentActivityName=".AddProduct"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pcinnovations.shoppingtest.AddProduct" />
@@ -45,7 +45,7 @@
             android:name=".GetProductsByName"
             android:label="@string/title_activity_get_products_by_name"
             android:parentActivityName=".AddProduct"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pcinnovations.shoppingtest.AddProduct" />
@@ -54,7 +54,7 @@
             android:name=".SavedProducts"
             android:label="@string/title_activity_saved_products"
             android:parentActivityName=".HelloActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pcinnovations.shoppingtest.HelloActivity" />
@@ -62,21 +62,34 @@
         <activity
             android:name=".AddItemToList"
             android:label="@string/title_activity_add_item_to_list"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pcinnovations.shoppingtest.ShowList" />
         </activity>
         <activity
             android:name=".ProductFinder"
             android:label="@string/title_activity_product_finder"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SplashScreen"
             android:label="@string/title_activity_splash_screen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ShowList"
+            android:label="@string/title_activity_show_list"
+            android:parentActivityName=".MyLists"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pcinnovations.shoppingtest.MyLists" />
         </activity>
     </application>
 

@@ -56,4 +56,8 @@
     <string name="label_app_loading">Trwa ładowanie aplikacji</string>
     <string name="shared_prefs_key">com.pcinnovations.shoppingtest.SharedPrefs</string>
     <string name="label_add_product_dialog">Dodaj produkt</string>
+    <string name="title_activity_show_list">Lista</string>
+    <string name="action_delete_item">Usuń wpis</string>
+    <string name="action_change_amount">Zmień ilość</string>
+    <string name="label_bought">Kupione</string>
 </resources>

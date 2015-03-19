@@ -330,10 +330,8 @@ public class MyLists extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedList = downloadedListsIds.get(position);
                 //Toast.makeText(MyLists.this, selectedList, Toast.LENGTH_SHORT).show();
-                Intent startIntent = new Intent(MyLists.this, AddItemToList.class);
+                Intent startIntent = new Intent(MyLists.this, ShowList.class);
                 getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).edit().putString("sc_listId", selectedList).putString("sc_listName",downloadedLists.get(position)).commit();
-                startIntent.putExtra("listId", selectedList);
-                startIntent.putExtra("listName", downloadedLists.get(position));
                 startActivity(startIntent);
             }
         });
