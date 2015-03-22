@@ -117,9 +117,8 @@ public class GetProductsByName extends ActionBarActivity {
         protected void onPostExecute(String result) {
             try {
                 dialog.dismiss();
-                if(result.equalsIgnoreCase("Unknown")) {
-                    Toast.makeText(GetProductsByName.this, "Nie znaleziono produktu o podanym kodzie kreskowym!", Toast.LENGTH_SHORT).show();
-                    GetProductsByName.this.finish();
+                if(result.equalsIgnoreCase("NOT_FOUND")) {
+
                 }
                 if(result.equalsIgnoreCase("banana")) {
                     Toast.makeText(GetProductsByName.this, "Produkt został zapisany!", Toast.LENGTH_SHORT).show();
