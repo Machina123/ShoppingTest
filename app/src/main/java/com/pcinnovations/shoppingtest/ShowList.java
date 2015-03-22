@@ -108,6 +108,7 @@ public class ShowList extends ActionBarActivity {
                 return resp;
             } catch (Exception e) {
                 e.printStackTrace();
+                //Toast.makeText(ShowList.this, "Nie można połączyć z siecią!", Toast.LENGTH_SHORT).show();
                 return "Nie można połączyć z siecią!";
             }
         }

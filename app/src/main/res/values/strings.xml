@@ -42,7 +42,7 @@
 
     <string name="action_rename_list">Zmień nazwę</string>
     <string name="action_delete_list">Usuń listę</string>
-    <string name="title_activity_saved_products">SavedProducts</string>
+    <string name="title_activity_saved_products">Zapisane produkty</string>
     <string name="title_activity_add_item_to_list">Dodaj wpis do listy</string>
     <string name="button_get_product_from_saved">Ostatnio wybierane</string>
     <string name="button_get_product_from_db">Z bazy danych</string>
@@ -60,4 +60,9 @@
     <string name="action_delete_item">Usuń wpis</string>
     <string name="action_change_amount">Zmień ilość</string>
     <string name="label_bought">Kupione</string>
+    <string name="alert_no_net_title">Uwaga</string>
+    <string name="alert_no_net_body">Aplikacja wymaga dostępu do Internetu. Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="action_clear_cache">Wyczyść</string>
+    <string name="alert_clear_cache_title">Uwaga</string>
+    <string name="alert_clear_cache_body">Czy na pewno chcesz wyczyścić listę zapisanych produktów? Operacja jest nieodwracalna!</string>
 </resources>

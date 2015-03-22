@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -88,6 +89,7 @@ public class FindProductByCodeActivity extends ActionBarActivity {
                 return resp;
             } catch (Exception e) {
                 e.printStackTrace();
+                //Toast.makeText(FindProductByCodeActivity.this, "Nie można połączyć z siecią!", Toast.LENGTH_SHORT).show();
                 return "Nie można połączyć z siecią!";
             }
         }
@@ -96,10 +98,16 @@ public class FindProductByCodeActivity extends ActionBarActivity {
         protected void onPostExecute(String result) {
             try {
                 dialog.dismiss();
-                if(requestCode == 1) {
-
+                if(result.equalsIgnoreCase("Unknown")) {
+                    Toast.makeText(FindProductByCodeActivity.this, "Nie znaleziono produktu o podanym kodzie kreskowym!", Toast.LENGTH_SHORT).show();
+                    FindProductByCodeActivity.this.finish();
+                }
+                if(result.equalsIgnoreCase("banana")) {
+                    Toast.makeText(FindProductByCodeActivity.this, "Produkt został zapisany!", Toast.LENGTH_SHORT).show();
+                    FindProductByCodeActivity.this.finish();
                 }
                 resultView.setText("Znaleziono produkt: " + result);
+                new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddToProductCache.php?ean=" + Uri.encode(scannedCode) + "&name=" + Uri.encode(result)));
             } catch (Exception e) {
                 e.printStackTrace();
             }

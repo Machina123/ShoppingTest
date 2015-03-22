@@ -108,7 +108,8 @@ public class HelloActivity extends ActionBarActivity {
     }
 
     public void onListProductsClick() {
-        Toast.makeText(this,"Zapisane produkty", Toast.LENGTH_SHORT).show();
+        Intent startIntent = new Intent(HelloActivity.this, SavedProducts.class);
+        startActivity(startIntent);
     }
 
     public void onUserMgmtClick() {

@@ -108,6 +108,7 @@ public class GetProductsByName extends ActionBarActivity {
                 return resp;
             } catch (Exception e) {
                 e.printStackTrace();
+                //Toast.makeText(GetProductsByName.this, "Nie można połączyć z siecią!", Toast.LENGTH_SHORT).show();
                 return "Nie można połączyć z siecią!";
             }
         }
@@ -116,6 +117,14 @@ public class GetProductsByName extends ActionBarActivity {
         protected void onPostExecute(String result) {
             try {
                 dialog.dismiss();
+                if(result.equalsIgnoreCase("Unknown")) {
+                    Toast.makeText(GetProductsByName.this, "Nie znaleziono produktu o podanym kodzie kreskowym!", Toast.LENGTH_SHORT).show();
+                    GetProductsByName.this.finish();
+                }
+                if(result.equalsIgnoreCase("banana")) {
+                    Toast.makeText(GetProductsByName.this, "Produkt został zapisany!", Toast.LENGTH_SHORT).show();
+                    GetProductsByName.this.finish();
+                }
                 JSONArray prods = new JSONArray(result);
                 GetProductsByName.products = prods;
                 refreshList();
@@ -157,7 +166,9 @@ public class GetProductsByName extends ActionBarActivity {
                     startActivity(intent);
                     finish();
                 }
-                else Toast.makeText(GetProductsByName.this, selected.getName(), Toast.LENGTH_SHORT).show();
+                else {
+                    new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddToProductCache.php?ean=" + Uri.encode(selected.getEan()) + "&name=" + Uri.encode(selected.getName())));
+                }
             }
         });
     }
