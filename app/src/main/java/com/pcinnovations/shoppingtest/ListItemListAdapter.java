@@ -41,7 +41,7 @@ public class ListItemListAdapter extends ArrayAdapter<ListItem> {
             if(textName != null) textName.setText(o.getName());
             if(textEan != null) textEan.setText("Kod kreskowy: "+ o.getEan());
             if(textAmount != null) textAmount.setText("Ilość: " + o.getAmount());
-            if(textBought != null) textBought.setText(o.isBought() == 1 ? "Kupione: tak" : "Kupione: nie" );
+            if(textBought != null) textBought.setText(o.isBought() == 1 ? "Kupione" : "" );
         }
 
         return v;

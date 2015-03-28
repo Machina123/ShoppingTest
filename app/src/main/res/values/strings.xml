@@ -44,7 +44,7 @@
     <string name="action_delete_list">Usuń listę</string>
     <string name="title_activity_saved_products">Zapisane produkty</string>
     <string name="title_activity_add_item_to_list">Dodaj wpis do listy</string>
-    <string name="button_get_product_from_saved">Ostatnio wybierane</string>
+    <string name="button_get_product_from_saved">Z listy zapisanych</string>
     <string name="button_get_product_from_db">Z bazy danych</string>
     <string name="label_set_amount">Podaj ilość</string>
     <string name="title_">MainActivity</string>
@@ -65,4 +65,6 @@
     <string name="action_clear_cache">Wyczyść</string>
     <string name="alert_clear_cache_title">Uwaga</string>
     <string name="alert_clear_cache_body">Czy na pewno chcesz wyczyścić listę zapisanych produktów? Operacja jest nieodwracalna!</string>
+    <string name="button_get_from_essentials">Podstawowe produkty</string>
+    <string name="title_activity_get_product_from_essentials">Podstawowe produkty</string>
 </resources>

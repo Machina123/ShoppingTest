@@ -87,10 +87,15 @@
             android:name=".ShowList"
             android:label="@string/title_activity_show_list"
             android:parentActivityName=".MyLists"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pcinnovations.shoppingtest.MyLists" />
+        </activity>
+        <activity
+            android:name=".GetProductFromEssentials"
+            android:label="@string/title_activity_get_product_from_essentials"
+            android:parentActivityName=".AddItemToList" >
         </activity>
     </application>
 

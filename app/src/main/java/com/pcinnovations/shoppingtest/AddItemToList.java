@@ -33,6 +33,8 @@ public class AddItemToList extends ActionBarActivity {
     private String returnedEan;
     private String returnedName;
 
+    public boolean selectedFromEssentials = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class AddItemToList extends ActionBarActivity {
 
         returnedEan = getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).getString("sc_returnedEan", "0000000000000");
         returnedName = getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).getString("sc_returnedName", "null");
+        selectedFromEssentials = getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).getBoolean("sc_isFromEssentials", false);
 
         if(!returnedEan.equals("0000000000000") && !returnedName.equals("null")) {
             addProduct();
@@ -53,6 +56,7 @@ public class AddItemToList extends ActionBarActivity {
         setContentView(R.layout.activity_add_item_to_list);
         Button btnGetFromRecent = (Button) findViewById(R.id.btnGetFromRecent);
         Button btnGetFromDb = (Button) findViewById(R.id.btnGetFromDb);
+        Button btnGetFromEss = (Button) findViewById(R.id.btnGetFromEssentials);
         TextView lblListName = (TextView) findViewById(R.id.lblListId);
         lblListName.setText("Wybrana lista: " + listName);
 
@@ -60,6 +64,13 @@ public class AddItemToList extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        btnGetFromEss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AddItemToList.this, GetProductFromEssentials.class));
             }
         });
 
@@ -157,7 +168,8 @@ public class AddItemToList extends ActionBarActivity {
                         else
                             sendableAmount = Uri.encode("1");
 
-                        new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddItemToList.php?list=" + Uri.encode(listId) + "&ean=" + Uri.encode(returnedEan) + "&name=" + Uri.encode(returnedName) + "&amount=" + sendableAmount ));
+                        new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddItemToList.php?list=" + Uri.encode(listId) + "&ean=" + Uri.encode(returnedEan) + "&name=" + Uri.encode(returnedName) + "&amount=" + sendableAmount + "&save=" + (selectedFromEssentials ? "1" : "0" ) ));
+                        if(selectedFromEssentials) getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).edit().remove("sc_isFromEssentials").commit();
                     }
                 })
                 .show();
