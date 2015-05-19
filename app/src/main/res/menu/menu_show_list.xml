@@ -4,7 +4,10 @@
     tools:context="com.pcinnovations.shoppingtest.ShowList">
 
     <item android:id="@+id/action_add_product" android:title="@string/action_add_list"
-        android:orderInCategory="100" app:showAsAction="always"
+        android:orderInCategory="101" app:showAsAction="always"
         android:icon="@drawable/ic_add" />
+    <item android:id="@+id/action_refresh_list" android:title="Odśwież"
+        android:orderInCategory="100" app:showAsAction="always"
+        android:icon="@drawable/ic_refresh" />
 
 </menu>

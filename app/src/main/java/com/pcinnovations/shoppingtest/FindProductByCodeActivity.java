@@ -2,13 +2,15 @@ package com.pcinnovations.shoppingtest;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +18,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -49,13 +50,15 @@ public class FindProductByCodeActivity extends ActionBarActivity {
         }
 
 
-        if(extras.getString("SCANNED_CODE") != null)
+        if(extras.getString("SCANNED_CODE") != null) {
             scannedCode = extras.getString("SCANNED_CODE");
 
-        resultView.setText("Proszę czekać...");
+            resultView.setText("Proszę czekać...");
 
-        new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/GetProductByEAN.php?code=" + scannedCode));
-
+            new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/GetProductByEAN.php?code=" + scannedCode));
+        } else {
+            finish();
+        }
     }
 
     @Override
@@ -99,15 +102,29 @@ public class FindProductByCodeActivity extends ActionBarActivity {
             try {
                 dialog.dismiss();
                 if(result.equalsIgnoreCase("Unknown")) {
-                    Toast.makeText(FindProductByCodeActivity.this, "Nie znaleziono produktu o podanym kodzie kreskowym!", Toast.LENGTH_SHORT).show();
-                    FindProductByCodeActivity.this.finish();
-                }
-                if(result.equalsIgnoreCase("banana")) {
+                    final LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                    final View promptView = inflater.inflate(R.layout.layout_add_custom, null);
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(FindProductByCodeActivity.this);
+                    alertDialog.setTitle("Własny produkt")
+                            .setView(promptView)
+                            .setPositiveButton("Dodaj", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    EditText nameField = (EditText) promptView.findViewById(R.id.txtCustomName);
+                                    String sendableName = Uri.encode(nameField.getText().toString());
+
+                                    new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddToProductCache.php?ean=" + Uri.encode(String.valueOf(scannedCode)) + "&name=" + sendableName));
+                                }
+                            })
+                            .setNegativeButton("Anuluj",null)
+                            .show();
+                } else if(result.equalsIgnoreCase("banana")) {
                     Toast.makeText(FindProductByCodeActivity.this, "Produkt został zapisany!", Toast.LENGTH_SHORT).show();
                     FindProductByCodeActivity.this.finish();
+                } else {
+                    resultView.setText("Znaleziono produkt: " + result);
+                    new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddToProductCache.php?ean=" + Uri.encode(scannedCode) + "&name=" + Uri.encode(result)));
                 }
-                resultView.setText("Znaleziono produkt: " + result);
-                new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddToProductCache.php?ean=" + Uri.encode(scannedCode) + "&name=" + Uri.encode(result)));
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -1,6 +1,7 @@
 package com.pcinnovations.shoppingtest;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ProductListAdapter extends ArrayAdapter<Product> implements Filterable {
+public class ItemEssentialArrayAdapter extends ArrayAdapter<ItemEssential> implements Filterable {
 
-    private ArrayList<Product> objects;
-    private ArrayList<Product> objectsCopy;
+    private ArrayList<ItemEssential> objects;
+    private ArrayList<ItemEssential> objectsCopy;
     private Context thisContext;
 
-    public ProductListAdapter(Context context, int resource, ArrayList<Product> objects) {
+    public ItemEssentialArrayAdapter(Context context, int resource, ArrayList<ItemEssential> objects) {
         super(context, resource, objects);
         this.objects = objects;
         this.objectsCopy = objects;
@@ -32,16 +33,17 @@ public class ProductListAdapter extends ArrayAdapter<Product> implements Filtera
     private Filter myFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+            Log.d("SC/EssentialFilter", "Filtrowanie - " + constraint);
             FilterResults results = new FilterResults();
-            ArrayList<Product> tempList = new ArrayList<Product>();
+            ArrayList<ItemEssential> tempList = new ArrayList<ItemEssential>();
             if(constraint == null || constraint.length() == 0) {
                 tempList = objectsCopy;
             } else {
                 int length = objects.size();
                 for(int i = 0; i < length; i++){
-                    Product p = objects.get(i);
+                    ItemEssential p = objects.get(i);
 
-                    if(p.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                    if(p.getItemName().toLowerCase().contains(constraint.toString().toLowerCase())) {
                         tempList.add(p);
                     }
                 }
@@ -57,9 +59,10 @@ public class ProductListAdapter extends ArrayAdapter<Product> implements Filtera
         @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence constraint, FilterResults results) {
             if (results.count > 0) {
-                objects = (ArrayList<Product>) results.values;
+                objects = (ArrayList<ItemEssential>) results.values;
                 notifyDataSetChanged();
             } else {
+                //notifyDataSetChanged();
                 notifyDataSetInvalidated();
             }
         }
@@ -72,34 +75,30 @@ public class ProductListAdapter extends ArrayAdapter<Product> implements Filtera
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         View v = convertView;
 
         if (v == null) {
             LayoutInflater vi = (LayoutInflater)thisContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = vi.inflate(R.layout.product_item, null);
+            v = vi.inflate(R.layout.layout_essential_item, null);
         }
 
-        Product o = null;
+        ItemEssential o = null;
 
         try {
-           o = objects.get(position);
+            o = objects.get(position);
         } catch(IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
 
         if (o != null) {
-            TextView textName = (TextView) v.findViewById(R.id.txtName);
-            TextView textEan = (TextView) v.findViewById(R.id.txtEan);
-            if (textName != null) {
-                textName.setText(o.getName());
-            }
-            if(textEan != null){
-                textEan.setText("Kod kreskowy: "+ o.getEan());
-            }
+            TextView textName = (TextView) v.findViewById(R.id.txtEssentialName);
 
+            if (textName != null) {
+                textName.setText(o.getItemName());
+            }
         }
         return v;
     }
+
 }
 

@@ -22,7 +22,8 @@
     <string name="title_activity_add_product">AddProduct</string>
 
     <string name="action_addprod_scan_code">Zeskanuj kod kreskowy</string>
-    <string name="action_addprod_search_name">Wpisz nazwę produktu</string>
+    <string name="action_addprod_search_name">Wyszukaj na podst. nazwy</string>
+    <string name="action_addprod_custom">Własny...</string>
     <string name="label_last_product">Ostatnio skanowany:</string>
     <string name="text_barcode_app_required">Aplikacja wymaga zainstalowania czytnika kodów Google ZXing. Kliknij tutaj, aby pobrać</string>
 
@@ -67,4 +68,6 @@
     <string name="alert_clear_cache_body">Czy na pewno chcesz wyczyścić listę zapisanych produktów? Operacja jest nieodwracalna!</string>
     <string name="button_get_from_essentials">Podstawowe produkty</string>
     <string name="title_activity_get_product_from_essentials">Podstawowe produkty</string>
+    <string name="label_custom_set_ean">Kod kreskowy:</string>
+    <string name="label_custom_set_name">Nazwa produktu:</string>
 </resources>

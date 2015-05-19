@@ -13,4 +13,5 @@
 
     <color name="rgb_white">#ffffff</color>
     <color name="rgb_black">#000000</color>
+    <color name="item_blackout">#7faaaaaa</color>
 </resources>

@@ -1,11 +1,11 @@
 package com.pcinnovations.shoppingtest;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class ListItemListAdapter extends ArrayAdapter<ListItem> {
         }
 
         ListItem o = objects.get(position);
-
+        int paintFlags;
         if (o != null) {
             TextView textName = (TextView) v.findViewById(R.id.txtLPItemName);
             TextView textEan = (TextView) v.findViewById(R.id.txtLPEan);
@@ -42,6 +42,13 @@ public class ListItemListAdapter extends ArrayAdapter<ListItem> {
             if(textEan != null) textEan.setText("Kod kreskowy: "+ o.getEan());
             if(textAmount != null) textAmount.setText("Ilość: " + o.getAmount());
             if(textBought != null) textBought.setText(o.isBought() == 1 ? "Kupione" : "" );
+            if(o.isBought() == 1) {
+                textName.setPaintFlags(textName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                v.setBackgroundResource(R.color.item_blackout);
+            } else {
+                textName.setPaintFlags(0);
+                v.setBackgroundResource(R.color.rgb_white);
+            }
         }
 
         return v;

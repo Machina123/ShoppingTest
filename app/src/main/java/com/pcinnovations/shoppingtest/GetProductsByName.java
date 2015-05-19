@@ -5,15 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -161,6 +157,7 @@ public class GetProductsByName extends ActionBarActivity {
                 Log.d("SC_RequestCode", String.valueOf(requestCode));
                 if(requestCode != 0) {
                     Intent intent = new Intent(GetProductsByName.this, AddItemToList.class);
+                    new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddToProductCache.php?ean=" + Uri.encode(selected.getEan()) + "&name=" + Uri.encode(selected.getName())));
                     getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).edit().putString("sc_returnedEan", selected.getEan()).putString("sc_returnedName", selected.getName()).commit();
                     startActivity(intent);
                     finish();

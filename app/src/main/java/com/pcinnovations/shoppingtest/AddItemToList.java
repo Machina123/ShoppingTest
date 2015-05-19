@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -57,13 +56,14 @@ public class AddItemToList extends ActionBarActivity {
         Button btnGetFromRecent = (Button) findViewById(R.id.btnGetFromRecent);
         Button btnGetFromDb = (Button) findViewById(R.id.btnGetFromDb);
         Button btnGetFromEss = (Button) findViewById(R.id.btnGetFromEssentials);
-        TextView lblListName = (TextView) findViewById(R.id.lblListId);
-        lblListName.setText("Wybrana lista: " + listName);
+        getSupportActionBar().setSubtitle(listName);
 
         btnGetFromRecent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent startIntent = new Intent(AddItemToList.this, SavedProducts.class);
+                startIntent.putExtra("sc_requestCode", 1);
+                startActivity(startIntent);
             }
         });
 
@@ -170,6 +170,12 @@ public class AddItemToList extends ActionBarActivity {
 
                         new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddItemToList.php?list=" + Uri.encode(listId) + "&ean=" + Uri.encode(returnedEan) + "&name=" + Uri.encode(returnedName) + "&amount=" + sendableAmount + "&save=" + (selectedFromEssentials ? "1" : "0" ) ));
                         if(selectedFromEssentials) getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).edit().remove("sc_isFromEssentials").commit();
+                    }
+                })
+                .setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).edit().clear().putString("sc_listId", listId).putString("sc_listName", listName).commit();
                     }
                 })
                 .show();

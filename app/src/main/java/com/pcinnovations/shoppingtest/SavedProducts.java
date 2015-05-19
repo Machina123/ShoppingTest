@@ -1,19 +1,22 @@
 package com.pcinnovations.shoppingtest;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -33,18 +36,65 @@ public class SavedProducts extends ActionBarActivity {
 
     public static JSONArray products;
     protected ListView listProds;
+    protected EditText txtFilter;
+    protected int requestCode;
+    protected ProductListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestCode = getIntent().getIntExtra("sc_requestCode", 0);
+        Log.d("SC/RequestCode", String.valueOf(requestCode));
         setContentView(R.layout.activity_saved_products);
         listProds = (ListView) findViewById(R.id.listProdCache);
+        ImageButton btnClearFilter = (ImageButton) findViewById(R.id.btnCacheFilterClear);
+
+        txtFilter = (EditText) findViewById(R.id.txtCacheFilter);
+        btnClearFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtFilter.setText("");
+                refreshList();
+            }
+        });
+
+        txtFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() != 0) {
+                    adapter.getFilter().filter(s.toString());
+                } else {
+                    refreshList();
+                }
+            }
+        });
+        if(requestCode != 0) {
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
+            getSupportActionBar().setHomeButtonEnabled(false);
+            getSupportActionBar().setHomeAsUpIndicator(null);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
         new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/GetProductCache.php"));
+
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_saved_products, menu);
-        return true;
+        if(requestCode == 0) {
+            getMenuInflater().inflate(R.menu.menu_saved_products, menu);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -55,6 +105,10 @@ public class SavedProducts extends ActionBarActivity {
         switch(id){
             case R.id.action_clear_prod_cache:
                 clearProdCache();
+                break;
+            case R.id.action_refresh_cache:
+                new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/GetProductCache.php"));
+                Toast.makeText(SavedProducts.this, "Odświeżanie zawartości...",  Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -114,9 +168,28 @@ public class SavedProducts extends ActionBarActivity {
     }
 
     public void refreshList() {
+       refreshList(null);
+    }
+
+    public void refreshList(String filter) {
         final ArrayList<Product> productsArray = getProductsFromJsonArray(products);
-        final ProductListAdapter adapter = new ProductListAdapter(SavedProducts.this, R.layout.product_item, productsArray );
+        this.adapter = new ProductListAdapter(SavedProducts.this, R.layout.product_item, productsArray );
         listProds.setAdapter(adapter);
+        if(requestCode != 0) {
+            listProds.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Product p = productsArray.get(position);
+                    getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("sc_returnedEan", p.getEan())
+                            .putString("sc_returnedName", p.getName())
+                            .commit();
+                    startActivity(new Intent(SavedProducts.this, AddItemToList.class));
+                    SavedProducts.this.finish();
+                }
+            });
+        }
     }
 
 

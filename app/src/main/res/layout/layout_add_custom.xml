@@ -7,18 +7,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Name"
-        android:id="@+id/txtName"
-        android:layout_margin="8dp"
-        android:textColor="@color/rgb_black" />
+        android:text="@string/label_custom_set_name"
+        android:id="@+id/txtCustomSetName"
+        android:layout_margin="8dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Ean"
-        android:id="@+id/txtEan"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
-        android:textSize="8pt" />
+        android:id="@+id/txtCustomName"
+        android:singleLine="true" />
+
 </LinearLayout>

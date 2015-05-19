@@ -4,6 +4,8 @@
     tools:context="com.pcinnovations.shoppingtest.SavedProducts">
     <item android:id="@+id/action_clear_prod_cache" android:title="@string/action_clear_cache"
         android:icon="@drawable/ic_remove_white"
-        android:orderInCategory="100" app:showAsAction="ifRoom" />
-
+        android:orderInCategory="101" app:showAsAction="ifRoom" />
+    <item android:id="@+id/action_refresh_cache" android:title="Odśwież"
+        android:icon="@drawable/ic_refresh"
+        android:orderInCategory="100" app:showAsAction="always" />
 </menu>

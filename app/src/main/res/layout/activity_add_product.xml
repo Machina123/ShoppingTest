@@ -27,6 +27,14 @@
             android:id="@+id/btnAddProdEnterName"
             android:layout_gravity="center_horizontal" />
 
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/action_addprod_custom"
+            android:id="@+id/btnAddCustomproduct"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
@@ -42,6 +50,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:textAlignment="center" />
+
         </RelativeLayout>
 
     </LinearLayout>
