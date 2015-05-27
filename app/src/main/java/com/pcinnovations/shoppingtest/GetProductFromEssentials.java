@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.pcinnovations.shoppingtest.common.ApiData;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -67,14 +69,14 @@ public class GetProductFromEssentials extends ActionBarActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length() != 0) {
+                if(s.length() > 0) {
                     adapter.getFilter().filter(s.toString());
                 } else {
                     refreshList();
                 }
             }
         });
-        new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/GetEssentialList.php"));
+        new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "GetEssentialList.php"));
     }
 
     @Override

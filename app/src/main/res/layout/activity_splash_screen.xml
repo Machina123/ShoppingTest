@@ -19,21 +19,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/label_app_loading"
-        android:id="@+id/textView2"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/rgb_white" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/label_hello"
         android:id="@+id/textView3"
-        android:layout_above="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/rgb_white" />
+        android:textColor="@color/rgb_white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

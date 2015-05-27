@@ -20,6 +20,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.pcinnovations.shoppingtest.common.ApiData;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -82,7 +84,7 @@ public class SavedProducts extends ActionBarActivity {
             getSupportActionBar().setHomeAsUpIndicator(null);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
-        new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/GetProductCache.php"));
+        new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "GetProductCache.php"));
 
 
     }
@@ -107,7 +109,7 @@ public class SavedProducts extends ActionBarActivity {
                 clearProdCache();
                 break;
             case R.id.action_refresh_cache:
-                new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/GetProductCache.php"));
+                new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "GetProductCache.php"));
                 Toast.makeText(SavedProducts.this, "Odświeżanie zawartości...",  Toast.LENGTH_SHORT).show();
                 break;
         }
@@ -202,7 +204,7 @@ public class SavedProducts extends ActionBarActivity {
                 .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                       new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/ClearProductCache.php"));
+                       new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "ClearProductCache.php"));
                     }
                 })
                 .setNegativeButton("Nie", null)

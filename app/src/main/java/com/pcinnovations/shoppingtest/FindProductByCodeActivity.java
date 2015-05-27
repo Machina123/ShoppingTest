@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pcinnovations.shoppingtest.common.ApiData;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -113,7 +115,7 @@ public class FindProductByCodeActivity extends ActionBarActivity {
                                     EditText nameField = (EditText) promptView.findViewById(R.id.txtCustomName);
                                     String sendableName = Uri.encode(nameField.getText().toString());
 
-                                    new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddToProductCache.php?ean=" + Uri.encode(String.valueOf(scannedCode)) + "&name=" + sendableName));
+                                    new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "AddToProductCache.php?ean=" + Uri.encode(String.valueOf(scannedCode)) + "&name=" + sendableName));
                                 }
                             })
                             .setNegativeButton("Anuluj",null)
@@ -123,7 +125,7 @@ public class FindProductByCodeActivity extends ActionBarActivity {
                     FindProductByCodeActivity.this.finish();
                 } else {
                     resultView.setText("Znaleziono produkt: " + result);
-                    new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddToProductCache.php?ean=" + Uri.encode(scannedCode) + "&name=" + Uri.encode(result)));
+                    new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "AddToProductCache.php?ean=" + Uri.encode(scannedCode) + "&name=" + Uri.encode(result)));
                 }
             } catch (Exception e) {
                 e.printStackTrace();

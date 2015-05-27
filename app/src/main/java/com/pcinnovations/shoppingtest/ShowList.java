@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.pcinnovations.shoppingtest.common.ApiData;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -56,7 +58,7 @@ public class ShowList extends ActionBarActivity {
     }
 
     public void getItems() {
-        new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/GetItemsFromList.php?list=" + Uri.encode(listId)));
+        new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "GetItemsFromList.php?list=" + Uri.encode(listId)));
     }
 
     @Override
@@ -123,7 +125,7 @@ public class ShowList extends ActionBarActivity {
                     updateLists(result);
                     break;
                 case "default":
-                    new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/GetItemsFromList.php?list=" + Uri.encode(listId)));
+                    new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "GetItemsFromList.php?list=" + Uri.encode(listId)));
                     break;
             }
 
@@ -221,7 +223,7 @@ public class ShowList extends ActionBarActivity {
                         else
                             sendableAmount = Uri.encode("1");
 
-                        new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/ChangeProductAmount.php?list=" + Uri.encode(listId)  + "&id=" + Uri.encode(paramProdId) + "&amount=" + sendableAmount ));
+                        new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "ChangeProductAmount.php?list=" + Uri.encode(listId)  + "&id=" + Uri.encode(paramProdId) + "&amount=" + sendableAmount ));
                     }
                 })
                 .setNegativeButton("Anuluj", null)
@@ -240,7 +242,7 @@ public class ShowList extends ActionBarActivity {
                 .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/DeleteItemFromList.php?list=" + Uri.encode(listId) + "&id=" + Uri.encode(productId)));
+                        new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "DeleteItemFromList.php?list=" + Uri.encode(listId) + "&id=" + Uri.encode(productId)));
                     }
                 })
                 .setNegativeButton("Nie", null)
@@ -265,7 +267,7 @@ public class ShowList extends ActionBarActivity {
         listItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/SetBought.php?list=" + Uri.encode(listId) + "&id=" + Uri.encode(itemIds.get(position)) + "&bought=" + Uri.encode(productsArray.get(position).isBought() == 0 ? "1" : "0")));
+                new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "SetBought.php?list=" + Uri.encode(listId) + "&id=" + Uri.encode(itemIds.get(position)) + "&bought=" + Uri.encode(productsArray.get(position).isBought() == 0 ? "1" : "0")));
             }
         });
     }

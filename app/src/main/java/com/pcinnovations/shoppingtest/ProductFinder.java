@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.pcinnovations.shoppingtest.common.ApiData;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -70,7 +71,7 @@ public class ProductFinder extends ActionBarActivity {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null) {
             scannedCode = scanResult.getContents();
-            new NetworkTask().execute((Uri.parse("http://93.180.174.49:50080/companion/GetProductFromCache.php?ean=" + Uri.encode(scannedCode))));
+            new NetworkTask().execute((Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "GetProductFromCache.php?ean=" + Uri.encode(scannedCode))));
         } else {
             finish();
         }
@@ -113,7 +114,7 @@ public class ProductFinder extends ActionBarActivity {
             try {
                 dialog.dismiss();
                 if(result.equalsIgnoreCase("NOT_FOUND")) {
-                    new NetworkTask().execute((Uri.parse("http://93.180.174.49:50080/companion/GetProductByEAN.php?code=" + Uri.encode(scannedCode))));
+                    new NetworkTask().execute((Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "GetProductByEAN.php?code=" + Uri.encode(scannedCode))));
                 } else if(result.equals("Unknown")) {
                     Toast.makeText(ProductFinder.this, "Nie znaleziono produktu o podanym kodzie kreskowym!", Toast.LENGTH_SHORT).show();
                     finish();

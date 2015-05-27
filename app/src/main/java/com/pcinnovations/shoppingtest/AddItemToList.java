@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.pcinnovations.shoppingtest.common.ApiData;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -168,7 +170,7 @@ public class AddItemToList extends ActionBarActivity {
                         else
                             sendableAmount = Uri.encode("1");
 
-                        new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddItemToList.php?list=" + Uri.encode(listId) + "&ean=" + Uri.encode(returnedEan) + "&name=" + Uri.encode(returnedName) + "&amount=" + sendableAmount + "&save=" + (selectedFromEssentials ? "1" : "0" ) ));
+                        new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "AddItemToList.php?list=" + Uri.encode(listId) + "&ean=" + Uri.encode(returnedEan) + "&name=" + Uri.encode(returnedName) + "&amount=" + sendableAmount + "&save=" + (selectedFromEssentials ? "1" : "0" ) ));
                         if(selectedFromEssentials) getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).edit().remove("sc_isFromEssentials").commit();
                     }
                 })

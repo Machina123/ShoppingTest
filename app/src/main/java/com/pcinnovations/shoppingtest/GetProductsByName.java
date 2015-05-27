@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pcinnovations.shoppingtest.common.ApiData;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -157,13 +159,13 @@ public class GetProductsByName extends ActionBarActivity {
                 Log.d("SC_RequestCode", String.valueOf(requestCode));
                 if(requestCode != 0) {
                     Intent intent = new Intent(GetProductsByName.this, AddItemToList.class);
-                    new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddToProductCache.php?ean=" + Uri.encode(selected.getEan()) + "&name=" + Uri.encode(selected.getName())));
+                    new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "AddToProductCache.php?ean=" + Uri.encode(selected.getEan()) + "&name=" + Uri.encode(selected.getName())));
                     getSharedPreferences(getString(R.string.shared_prefs_key), Context.MODE_PRIVATE).edit().putString("sc_returnedEan", selected.getEan()).putString("sc_returnedName", selected.getName()).commit();
                     startActivity(intent);
                     finish();
                 }
                 else {
-                    new NetworkTask().execute(Uri.parse("http://93.180.174.49:50080/companion/AddToProductCache.php?ean=" + Uri.encode(selected.getEan()) + "&name=" + Uri.encode(selected.getName())));
+                    new NetworkTask().execute(Uri.parse(ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR + "AddToProductCache.php?ean=" + Uri.encode(selected.getEan()) + "&name=" + Uri.encode(selected.getName())));
                 }
             }
         });

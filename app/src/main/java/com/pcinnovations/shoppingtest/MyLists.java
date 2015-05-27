@@ -23,6 +23,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pcinnovations.shoppingtest.common.ApiData;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -42,10 +44,11 @@ import java.util.ArrayList;
 
 public class MyLists extends ActionBarActivity {
 
-    private String newListUri = "http://93.180.174.49:50080/companion/AddList.php?user=1&name=";
-    private String getListsUri = "http://93.180.174.49:50080/companion/GetLists.php?user=1";
-    private String renameListsUri = "http://93.180.174.49:50080/companion/RenameList.php?list=";
-    private String deleteListUri = "http://93.180.174.49:50080/companion/DeleteList.php?list=";
+    private static final String API_BASE_ADDR = ApiData.API_ADDRESS + ApiData.SEPARATOR + ApiData.API_SUBFOLDER + ApiData.SEPARATOR;
+    private String newListUri = API_BASE_ADDR + "AddList.php?user=1&name=";
+    private String getListsUri = API_BASE_ADDR + "GetLists.php?user=1";
+    private String renameListsUri = API_BASE_ADDR + "RenameList.php?list=";
+    private String deleteListUri = API_BASE_ADDR + "DeleteList.php?list=";
 
     private static final String FILE_NAME = "lists.json";
 
