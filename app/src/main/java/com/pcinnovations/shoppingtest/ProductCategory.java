@@ -3,30 +3,30 @@ package com.pcinnovations.shoppingtest;
 public class ProductCategory {
 
     public static enum Category {
-        CATEGORY_ALCOHOL,
-        CATEGORY_FRUIT_VEGETABLES,
-        CATEGORY_BREAD,
-        CATEGORY_DAIRY,             //nabiał
-        CATEGORY_EGGS,
-        CATEGORY_COLD_CUTS,         //wędlinki
-        CATEGORY_FLESH,
-        CATEGORY_FISH,
-        CATEGORY_SNACKS,
-        CATEGORY_FROZEN_FOOD,
-        CATEGORY_POWDERS,           //art. sypkie (mąka, cukier itp.)
-        CATEGORY_SEASONINGS,
-        CATEGORY_PICKLED_VEGS,      //przetwory warzywne
-        CATEGORY_COFFEE_TEA,
-        CATEGORY_DELICACIES,        //bakalie
-        CATEGORY_INSTANT_MEAL,
-        CATEGORY_DRINKS,
-        CATEGORY_HOUSEHOLD_CHEM,
-        CATEGORY_COSMETICS,
-        CATEGORY_KIDS,
-        CATEGORY_PETS,
-        CATEGORY_APPLIANCE,         // RTV/AGD
-        CATEGORY_COMPUTERS,
-        CATEGORY_OTHER
+        ALCOHOL,
+        FRUIT_VEGETABLES,
+        BREAD,
+        DAIRY,             //nabiał
+        EGGS,
+        COLD_CUTS,         //wędlinki
+        FLESH,
+        FISH,
+        SNACKS,
+        FROZEN_FOOD,
+        POWDERS,           //art. sypkie (mąka, cukier itp.)
+        SEASONINGS,
+        PICKLED_VEGS,      //przetwory warzywne
+        COFFEE_TEA,
+        DELICACIES,        //bakalie
+        INSTANT_MEAL,
+        DRINKS,
+        HOUSEHOLD_CHEM,
+        COSMETICS,
+        KIDS,
+        PETS,
+        APPLIANCE,         // RTV/AGD
+        COMPUTERS,
+        OTHER
     }
 
 }
